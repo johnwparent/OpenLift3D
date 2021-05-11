@@ -133,6 +133,50 @@ private:
 };
 
 
+// This worker will just invert the image
+class WUserPostProcessing : public op::Worker<std::shared_ptr<std::vector<std::shared_ptr<UserDatum>>>>
+{
+public:
+    WUserPostProcessing()
+    {
+        // User's constructor here
+    }
+
+    void initializationOnThread() {}
+
+    void work(std::shared_ptr<std::vector<std::shared_ptr<UserDatum>>>& datumsPtr)
+    {
+        try
+        {
+        }
+        catch (const std::exception& e)
+        {
+            this->stop();
+            op::error(e.what(), __LINE__, __FUNCTION__, __FILE__);
+        }
+    }
+};
+
+// This worker will just read and return all the jpg files in a directory
+class WUserOutput : public op::WorkerConsumer<std::shared_ptr<std::vector<std::shared_ptr<UserDatum>>>>
+{
+public:
+    void initializationOnThread() {}
+
+    void workConsumer(const std::shared_ptr<std::vector<std::shared_ptr<UserDatum>>>& datumsPtr)
+    {
+        try
+        {
+
+        }
+        catch (const std::exception& e)
+        {
+            this->stop();
+            op::error(e.what(), __LINE__, __FUNCTION__, __FILE__);
+        }
+    }
+};
+
 void configureWrapper(op::WrapperT<op::Datum>& opWrapperT)
 {
     try
